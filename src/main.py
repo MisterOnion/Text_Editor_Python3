@@ -1,3 +1,7 @@
+# Must be first import
+from __future__ import annotations
+#
+from abc import ABC, abstractmethod
 from tkinter import *
 from tkinter import Scale
 import tkinter.filedialog as fd
@@ -248,6 +252,26 @@ class aboutCommands():
         - 'Delete' gets rid of selected texts entirely
         """
         mb.showinfo(title="All commands", message=commands)
+
+# Implementation of Command design pattern for overriding
+
+
+class entryCommand(ABC):
+    @abstractmethod
+    def trackchanges(self) -> None:
+        pass
+
+    def undo(self) -> None:
+        text_area.event_generate("<<Undo>>")
+
+    def redo(self) -> None:
+        text_area.event_generate("<<Redo>>")
+
+    def handle_undo(self) -> None:
+        pass
+
+    def handle_redo(self) -> None:
+        pass
 
 
 class entryDoable:
